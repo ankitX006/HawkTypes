@@ -417,3 +417,129 @@ button:focus-visible, input:focus-visible{ outline:2px solid var(--neon-blue); o
   .vs-role-pick{ grid-template-columns:1fr; }
   #screen-vs-race .live-stats{ grid-template-columns:repeat(2,1fr); }
 }
+
+/* ---------- 1v1 Rules Screen ---------- */
+.rules-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.rules-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.rules-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 16px;
+}
+.rule-card {
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.rule-card:hover {
+  transform: translateY(-2px);
+}
+.rule-card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.rc-sub {
+  font-size: 0.8rem;
+  color: var(--text-1);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.rc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-0);
+}
+.rc-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon-y {
+  color: var(--good);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.icon-x {
+  color: var(--bad);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Card Themes */
+.rule-card.r-blue { border-color: rgba(62,197,255,0.4); box-shadow: 0 0 20px rgba(62,197,255,0.05); }
+.rule-card.r-blue h3 { color: var(--neon-blue); }
+
+.rule-card.r-green { border-color: rgba(62,232,127,0.4); box-shadow: 0 0 20px rgba(62,232,127,0.05); }
+.rule-card.r-green h3 { color: var(--good); }
+
+.rule-card.r-red { border-color: rgba(255,92,114,0.4); box-shadow: 0 0 20px rgba(255,92,114,0.05); }
+.rule-card.r-red h3 { color: var(--bad); }
+
+.rc-title-glow {
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Numbered Lists */
+.rc-num-list {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-1);
+}
+.rc-num-list strong {
+  color: var(--text-0);
+}
+
+/* Mechanics Grid */
+.rules-mechanics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 6px;
+}
+.rm-item {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid var(--glass-border);
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-1);
+}
+.rm-item strong {
+  color: var(--neon-blue);
+  display: block;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 700px) {
+  .rules-grid-3, .rules-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
