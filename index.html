@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Master — Offline Typing Trainer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div id="toast-layer"></div>
+<div id="achievement-popup" class="achievement-popup hidden">
+  <div class="ap-icon">🏆</div>
+  <div class="ap-body">
+    <div class="ap-label">Achievement Unlocked</div>
+    <div class="ap-title" id="ap-title">—</div>
+  </div>
+</div>
+
+<div id="app">
+
+  <!-- ============ HOME SCREEN ============ -->
+  <section id="screen-home" class="screen active">
+    <div class="home-wrap">
+      <div class="logo-block">
+        <h1 class="logo">Typing<span>Master</span></h1>
+        <p class="tagline">Precision. Speed. Mastery.</p>
+      </div>
+      <nav class="home-menu">
+        <button class="menu-btn primary" data-nav="continue">
+          <span class="mb-icon">▶</span><span>Continue</span>
+        </button>
+        <button class="menu-btn" data-nav="levels">
+          <span class="mb-icon">⌂</span><span>Levels</span>
+        </button>
+        <button class="menu-btn" data-nav="modes">
+          <span class="mb-icon">◆</span><span>Practice Modes</span>
+        </button>
+        <button class="menu-btn" data-nav="vs-setup">
+          <span class="mb-icon">⚔</span><span>1v1 Race</span>
+        </button>
+        <button class="menu-btn" data-nav="achievements">
+          <span class="mb-icon">★</span><span>Achievements</span>
+        </button>
+        <button class="menu-btn" data-nav="statistics">
+          <span class="mb-icon">▤</span><span>Statistics</span>
+        </button>
+        <button class="menu-btn" data-nav="profile">
+          <span class="mb-icon">◉</span><span>Profile</span>
+        </button>
+        <button class="menu-btn" data-nav="settings">
+          <span class="mb-icon">⚙</span><span>Settings</span>
+        </button>
+      </nav>
+      <div class="home-footer">
+        <div class="stat-chip"><span id="home-rank">Beginner</span></div>
+        <div class="stat-chip">Best <span id="home-best-wpm">0</span> WPM</div>
+        <div class="stat-chip">Level <span id="home-level">1</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEVELS SCREEN ============ -->
+  <section id="screen-levels" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>Levels</h2>
+      <span></span>
+    </header>
+    <div class="level-grid" id="level-grid"></div>
+  </section>
+
+  <!-- ============ MODES SCREEN ============ -->
+  <section id="screen-modes" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>Practice Modes</h2>
+      <span></span>
+    </header>
+    <div class="mode-grid" id="mode-grid"></div>
+  </section>
+
+  <!-- ============ ACHIEVEMENTS SCREEN ============ -->
+  <section id="screen-achievements" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>Achievements</h2>
+      <span id="ach-progress" class="ach-progress-label">0 / 0</span>
+    </header>
+    <div class="achievement-grid" id="achievement-grid"></div>
+  </section>
+
+  <!-- ============ STATISTICS SCREEN ============ -->
+  <section id="screen-statistics" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>Statistics</h2>
+      <span></span>
+    </header>
+    <div class="stats-wrap">
+      <div class="stats-summary" id="stats-summary"></div>
+      <div class="chart-card">
+        <h3>WPM — Last 20 Tests</h3>
+        <canvas id="chart-wpm" width="600" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Accuracy — Last 20 Tests</h3>
+        <canvas id="chart-acc" width="600" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Mistake Heatmap (Top Keys)</h3>
+        <canvas id="chart-heat" width="600" height="160"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Practice Calendar (Last 35 Days)</h3>
+        <canvas id="chart-cal" width="600" height="120"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFILE SCREEN ============ -->
+  <section id="screen-profile" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>Profile</h2>
+      <span></span>
+    </header>
+    <div class="profile-wrap">
+      <div class="profile-card">
+        <div class="avatar" id="profile-avatar">🧑‍💻</div>
+        <input id="profile-username" class="username-input" maxlength="18" value="Typist">
+        <div class="rank-badge" id="profile-rank">Beginner</div>
+      </div>
+      <div class="profile-grid" id="profile-grid"></div>
+      <div class="avatar-picker" id="avatar-picker"></div>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS SCREEN ============ -->
+  <section id="screen-settings" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>Settings</h2>
+      <span></span>
+    </header>
+    <div class="settings-wrap">
+      <div class="setting-row">
+        <label>Theme</label>
+        <div class="seg" id="set-theme">
+          <button data-val="dark" class="seg-on">Dark</button>
+          <button data-val="light">Light</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Animations</label>
+        <label class="switch"><input type="checkbox" id="set-anim" checked><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <label>Sound</label>
+        <label class="switch"><input type="checkbox" id="set-sound" checked><span class="slider"></span></label>
+      </div>
+      <div class="setting-row">
+        <label>Font Size</label>
+        <input type="range" id="set-fontsize" min="16" max="34" value="22">
+      </div>
+      <div class="setting-row">
+        <label>Typing Font</label>
+        <div class="seg" id="set-font">
+          <button data-val="mono" class="seg-on">Mono</button>
+          <button data-val="sans">Sans</button>
+          <button data-val="serif">Serif</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Paragraph Length</label>
+        <div class="seg" id="set-length">
+          <button data-val="short">Short</button>
+          <button data-val="medium" class="seg-on">Medium</button>
+          <button data-val="long">Long</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Keyboard Layout</label>
+        <div class="seg" id="set-layout">
+          <button data-val="qwerty" class="seg-on">QWERTY</button>
+          <button data-val="dvorak">Dvorak</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label>Timer Duration</label>
+        <div class="seg" id="set-timer">
+          <button data-val="30">30s</button>
+          <button data-val="60" class="seg-on">60s</button>
+          <button data-val="120">120s</button>
+        </div>
+      </div>
+      <div class="setting-row buttons-row">
+        <button class="ghost-btn" id="btn-export">Export Progress</button>
+        <button class="ghost-btn" id="btn-import">Import Progress</button>
+        <input type="file" id="import-file" accept=".json" hidden>
+      </div>
+      <div class="setting-row buttons-row">
+        <button class="danger-btn" id="btn-reset-progress">Reset Progress</button>
+        <button class="danger-btn" id="btn-reset-stats">Reset Statistics</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEST SCREEN ============ -->
+  <section id="screen-test" class="screen">
+    <header class="test-topbar">
+      <button class="back-btn" id="test-exit">←</button>
+      <div class="test-mode-label" id="test-mode-label">Classic</div>
+      <div class="timer-block">
+        <span id="timer-display">60</span>
+        <button class="icon-btn" id="btn-pause" title="Pause">❚❚</button>
+        <button class="icon-btn" id="btn-restart" title="Restart">↻</button>
+      </div>
+    </header>
+
+    <div class="live-stats">
+      <div class="ls-item"><span class="ls-val" id="ls-wpm">0</span><span class="ls-lbl">WPM</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-target">0</span><span class="ls-lbl">Target</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-acc">100%</span><span class="ls-lbl">Accuracy</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-cpm">0</span><span class="ls-lbl">CPM</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-mistakes">0</span><span class="ls-lbl">Mistakes</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-level">1</span><span class="ls-lbl">Level</span></div>
+    </div>
+
+    <div class="type-card glass">
+      <div class="type-text" id="type-text"></div>
+    </div>
+
+    <input type="text" id="hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false">
+
+    <div class="keyboard-wrap">
+      <div class="finger-guide-label" id="finger-guide-label">Press any key to begin</div>
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+
+    <div id="pause-overlay" class="overlay hidden">
+      <div class="overlay-card">
+        <h2>Paused</h2>
+        <button class="menu-btn primary" id="btn-resume">Resume</button>
+        <button class="menu-btn" id="btn-restart-2">Restart</button>
+        <button class="menu-btn" id="btn-quit">Quit to Home</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 1v1 SETUP SCREEN ============ -->
+  <section id="screen-vs-setup" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="home">←</button>
+      <h2>1v1 Race</h2>
+      <span></span>
+    </header>
+    <div class="vs-wrap">
+
+      <div class="vs-info glass">
+        Both devices must be on the <strong>same Wi-Fi network or hotspot</strong>. No internet is used — this is a direct local connection. One device Hosts, the other Joins.
+      </div>
+
+      <div class="vs-role-pick" id="vs-role-pick">
+        <button class="menu-btn primary" id="vs-btn-host">Host a Race</button>
+        <button class="menu-btn primary" id="vs-btn-join">Join a Race</button>
+      </div>
+
+      <!-- HOST FLOW -->
+      <div class="vs-panel hidden" id="vs-host-panel">
+        <div class="vs-step">
+          <h4>Step 1 — Send this code to the other device</h4>
+          <p class="vs-hint">Copy it and send it any way you like (chat app, Bluetooth file/text share, email). It only has to be sent once.</p>
+          <textarea class="vs-code" id="vs-host-offer" readonly placeholder="Generating code..."></textarea>
+          <button class="ghost-btn" id="vs-copy-offer">Copy Code</button>
+        </div>
+        <div class="vs-step">
+          <h4>Step 2 — Paste the code they send back</h4>
+          <textarea class="vs-code" id="vs-host-answer" placeholder="Paste their reply code here"></textarea>
+          <button class="menu-btn primary" id="vs-host-connect">Connect</button>
+        </div>
+        <div class="vs-status" id="vs-host-status"></div>
+      </div>
+
+      <!-- JOIN FLOW -->
+      <div class="vs-panel hidden" id="vs-join-panel">
+        <div class="vs-step">
+          <h4>Step 1 — Paste the code from the host</h4>
+          <textarea class="vs-code" id="vs-join-offer" placeholder="Paste host's code here"></textarea>
+          <button class="menu-btn primary" id="vs-join-generate">Generate Reply Code</button>
+        </div>
+        <div class="vs-step">
+          <h4>Step 2 — Send this reply code back to the host</h4>
+          <textarea class="vs-code" id="vs-join-answer" readonly placeholder="Your reply code will appear here"></textarea>
+          <button class="ghost-btn" id="vs-copy-answer">Copy Code</button>
+        </div>
+        <div class="vs-status" id="vs-join-status"></div>
+      </div>
+
+      <div class="vs-lobby hidden" id="vs-lobby">
+        <div class="vs-connected">✓ Connected to opponent</div>
+        <div id="vs-host-controls" class="hidden">
+          <h4>Choose race rules</h4>
+          <div class="vs-options glass">
+            <div class="vs-option-row">
+              <label>Match Type</label>
+              <div class="seg" id="vs-match-type">
+                <button data-mode="timed" data-duration="30" class="seg-on">30s</button>
+                <button data-mode="timed" data-duration="60">60s</button>
+                <button data-mode="timed" data-duration="120">120s</button>
+                <button data-mode="unlimited" data-duration="0">Unlimited</button>
+              </div>
+            </div>
+            <div class="vs-option-row">
+              <label>Ruleset</label>
+              <div class="seg" id="vs-ruleset">
+                <button data-ruleset="standard" class="seg-on">Standard</button>
+                <button data-ruleset="precision">Precision</button>
+                <button data-ruleset="hardcore">Hardcore</button>
+              </div>
+            </div>
+            <div class="vs-option-row custom-text-row">
+              <label for="vs-custom-text">Custom Text</label>
+              <textarea id="vs-custom-text" class="vs-code" placeholder="Optional host text for a custom race"></textarea>
+            </div>
+          </div>
+          <h4>Text Category</h4>
+          <div class="mode-grid" id="vs-category-grid"></div>
+        </div>
+        <div id="vs-guest-waiting" class="hidden">Waiting for host to start the race...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 1v1 RACE SCREEN ============ -->
+  <section id="screen-vs-race" class="screen">
+    <header class="test-topbar">
+      <button class="back-btn" id="vs-exit">←</button>
+      <div class="test-mode-label">1v1 Race</div>
+      <div class="timer-block"><span id="vs-timer-display">0</span></div>
+    </header>
+
+    <div class="vs-tracks">
+      <div class="vs-track">
+        <div class="vs-track-label">You <span id="vs-my-wpm">0 WPM</span></div>
+        <div class="vs-track-bar"><div class="vs-track-fill me" id="vs-my-fill"></div></div>
+      </div>
+      <div class="vs-track">
+        <div class="vs-track-label">Opponent <span id="vs-opp-wpm">0 WPM</span></div>
+        <div class="vs-track-bar"><div class="vs-track-fill opp" id="vs-opp-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="live-stats">
+      <div class="ls-item"><span class="ls-val" id="vs-ls-wpm">0</span><span class="ls-lbl">WPM</span></div>
+      <div class="ls-item"><span class="ls-val" id="vs-ls-acc">100%</span><span class="ls-lbl">Accuracy</span></div>
+      <div class="ls-item"><span class="ls-val" id="vs-ls-progress">0%</span><span class="ls-lbl">Progress</span></div>
+      <div class="ls-item"><span class="ls-val" id="vs-ls-time">0s</span><span class="ls-lbl">Time Left</span></div>
+    </div>
+
+    <div class="type-card glass">
+      <div class="type-text" id="vs-type-text"></div>
+    </div>
+    <input type="text" id="vs-hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false">
+
+    <div id="vs-ready-overlay" class="overlay hidden">
+      <div class="overlay-card">
+        <h2>Ready Lock</h2>
+        <p class="vs-ready-copy" id="vs-ready-status">Both players must press Ready.</p>
+        <button class="menu-btn primary" id="vs-btn-ready">Ready</button>
+      </div>
+    </div>
+
+    <div id="vs-countdown-overlay" class="overlay hidden">
+      <div class="overlay-card"><h2 id="vs-countdown-num">3</h2></div>
+    </div>
+  </section>
+
+  <!-- ============ 1v1 RESULT SCREEN ============ -->
+  <section id="screen-vs-result" class="screen">
+    <div class="result-wrap">
+      <div class="result-banner" id="vs-result-banner">RESULT</div>
+      <div class="vs-result-compare" id="vs-result-compare"></div>
+      <div class="result-actions">
+        <button class="menu-btn primary" id="vs-btn-rematch">Rematch</button>
+        <button class="menu-btn" id="vs-btn-disconnect">Return Lobby</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULT SCREEN ============ -->
+  <section id="screen-result" class="screen">
+    <div class="result-wrap">
+      <div class="result-banner" id="result-banner">PASS</div>
+      <div class="result-grid" id="result-grid"></div>
+      <div class="result-weak" id="result-weak"></div>
+      <div class="result-suggestion" id="result-suggestion"></div>
+      <div class="result-earn">
+        <div>+<span id="result-xp">0</span> XP</div>
+        <div>+<span id="result-coins">0</span> Coins</div>
+        <div id="result-stars">☆☆☆</div>
+      </div>
+      <div class="result-actions">
+        <button class="menu-btn" id="btn-result-retry">Retry</button>
+        <button class="menu-btn primary" id="btn-result-next">Next Level</button>
+        <button class="menu-btn" id="btn-result-home">Home</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
