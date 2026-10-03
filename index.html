@@ -259,8 +259,11 @@
     </header>
     <div class="vs-wrap">
 
-      <div class="vs-info glass">
-        Both devices must be on the <strong>same Wi-Fi network or hotspot</strong>. No internet is used — this is a direct local connection. One device Hosts, the other Joins.
+      <div class="vs-info glass" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>Both devices must be on the <strong>same Wi-Fi network or hotspot</strong>. No internet is used.</div>
+        <button class="menu-btn" data-nav="rules" style="padding: 8px 16px; min-width: 140px;">
+          <span class="mb-icon">📖</span><span>Read Rules</span>
+        </button>
       </div>
 
       <div class="vs-role-pick" id="vs-role-pick">
@@ -387,6 +390,95 @@
         <button class="menu-btn primary" id="vs-btn-rematch">Rematch</button>
         <button class="menu-btn" id="vs-btn-disconnect">Return Lobby</button>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ RULES SCREEN ============ -->
+  <section id="screen-rules" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" data-nav="vs-setup">←</button>
+      <h2>HawkTypes 1v1 Rules</h2>
+      <span></span>
+    </header>
+    <div class="rules-wrap">
+      
+      <!-- Top Modes Grid -->
+      <div class="rules-grid-3">
+        <div class="rule-card r-blue">
+          <h3>Standard Mode</h3>
+          <div class="rc-sub">Classic & Balanced</div>
+          <ul class="rc-list">
+            <li><span class="icon-y">✓</span> Mistakes allowed</li>
+            <li><span class="icon-y">✓</span> Continue typing anytime</li>
+            <li><span class="icon-y">✓</span> Accuracy affects the result</li>
+            <li><span class="icon-x">✗</span> No instant loss</li>
+          </ul>
+        </div>
+        <div class="rule-card r-green">
+          <h3>Precision Mode</h3>
+          <div class="rc-sub">100% Accuracy Race</div>
+          <ul class="rc-list">
+            <li><span class="icon-y">✓</span> Wrong key must be corrected</li>
+            <li><span class="icon-y">✓</span> Final accuracy is always 100%</li>
+            <li><span class="icon-y">✓</span> Focus on speed and progress</li>
+            <li><span class="icon-x">✗</span> No instant loss</li>
+          </ul>
+        </div>
+        <div class="rule-card r-red">
+          <h3>Hardcore Mode</h3>
+          <div class="rc-sub">One Mistake = Game Over</div>
+          <ul class="rc-list">
+            <li><span class="icon-y">✓</span> One wrong key = immediate loss</li>
+            <li><span class="icon-y">✓</span> No second chances</li>
+            <li><span class="icon-y">✓</span> First to finish (or last standing) wins</li>
+            <li><span class="icon-x">✗</span> No tie-breakers needed</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Logic Grid -->
+      <div class="rules-grid-2">
+        <div class="rule-card">
+          <h3 class="rc-title-glow">⏱ Timed Mode Logic</h3>
+          <div class="rc-sub">When time reaches 0, priority is:</div>
+          <ol class="rc-num-list">
+            <li><strong>Higher Progress</strong> (% of text completed)</li>
+            <li><strong>Higher WPM</strong> (Speed)</li>
+            <li><strong>Higher Accuracy</strong> (Precision)</li>
+            <li>Draw (if all are identical)</li>
+          </ol>
+        </div>
+        <div class="rule-card">
+          <h3 class="rc-title-glow">🏁 Unlimited Mode Logic</h3>
+          <div class="rc-sub">Race to complete the text:</div>
+          <ol class="rc-num-list">
+            <li><strong>First player</strong> to reach 100% progress</li>
+            <li><strong>Shorter completion time</strong> (if finished same exact tick)</li>
+            <li><strong>Higher Accuracy</strong></li>
+            <li>Draw (if all are identical)</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Important Rules -->
+      <div class="rule-card">
+        <h3 class="rc-title-glow">⚠️ Important Mechanics</h3>
+        <div class="rules-mechanics-grid">
+          <div class="rm-item">
+            <strong>0% Progress Rule:</strong> A player with 0% progress cannot win unless the opponent also has 0%. AFK players forfeit.
+          </div>
+          <div class="rm-item">
+            <strong>Disconnections:</strong> If a player disconnects, they have a 10-second reconnect window. If they fail to return, they forfeit.
+          </div>
+          <div class="rm-item">
+            <strong>Strict Anti-Cheat:</strong> Pasting, drag-and-drop, and macro scripts are detected and result in an automatic, immediate forfeit.
+          </div>
+          <div class="rm-item">
+            <strong>Shared Seed:</strong> Both players always receive the exact same text formatting, characters, and sequence.
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
