@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HawkTypes — Precision System</title>
+<title>HawkTypes — Precision Terminal</title>
 <!-- Retro Terminal & Pixel Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -27,80 +27,93 @@
 
   <!-- ============ HOME SCREEN ============ -->
   <section id="screen-home" class="screen active">
-    
-    <!-- Top Terminal Navigation -->
-    <header class="terminal-topbar">
-      <div class="logo-block">
-        <h1 class="logo">HAWK<span class="purple-text">TYPES</span></h1>
-        <div class="logo-sub">PRECISION SYSTEM</div>
-      </div>
-      <nav class="top-nav">
-        <button class="nav-link active" data-nav="home">[ HOME ]</button>
-        <button class="nav-link" data-nav="modes">[ TRAIN ]</button>
-        <button class="nav-link" data-nav="vs-setup">[ DUEL ]</button>
-        <button class="nav-link" data-nav="levels">[ CLIMB ]</button>
-      </nav>
-    </header>
+    <div class="home-shell">
+      
+      <!-- Top Terminal Navigation -->
+      <header class="home-topbar">
+        <div class="brand-box">
+          <div class="brand-name">HAWK<span class="purple-text">TYPES</span></div>
+          <div class="brand-kicker text-1">PRECISION SYSTEM</div>
+        </div>
+        <nav class="top-nav-box">
+          <button class="nav-link active" data-nav="home">[ HOME ]</button>
+          <button class="nav-link" data-nav="modes">[ TRAIN ]</button>
+          <button class="nav-link" data-nav="vs-setup">[ DUEL ]</button>
+          <button class="nav-link" data-nav="levels">[ CLIMB ]</button>
+        </nav>
+      </header>
 
-    <div class="home-wrap">
-      <!-- Hero Section -->
-      <div class="hero-section">
-        <div class="hero-pre">TYPE // TRAIN // COMPETE <span class="line-ext"></span></div>
-        <h2 class="hero-title">
-          <div class="white-text">BUILD</div>
-          <div class="green-text">CONTROL.</div>
-          <div class="white-text">THEN BUILD</div>
-          <div class="purple-text">SPEED.</div>
-        </h2>
-        <p class="hero-sub">Accuracy first. Pressure second. Speed follows. <span class="cursor-blink">█</span></p>
-      </div>
+      <main class="home-main">
+        <!-- Hero Section -->
+        <section class="hero-copy">
+          <div class="eyebrow">TYPE // TRAIN // COMPETE <span class="line-ext"></span></div>
+          <h1 class="hero-title">
+            <div class="white-text">BUILD</div>
+            <div class="green-text">CONTROL.</div>
+            <div class="white-text">THEN BUILD</div>
+            <div class="purple-text">SPEED.</div>
+          </h1>
+          <p class="hero-sub">Accuracy first. Pressure second. Speed follows. <span class="cursor-blink">█</span></p>
+        </section>
 
-      <!-- Terminal Action Grid -->
-      <div class="action-grid terminal-cards">
-        <button class="term-card border-green" data-nav="modes">
-          <div class="tc-top">
-            <span class="tc-num green-text">01</span>
-            <span class="tc-arrow green-text">[ → ]</span>
-          </div>
-          <div class="tc-icon green-text">📝</div>
-          <div class="tc-divider"></div>
-          <div class="tc-title">TRAIN</div>
-          <div class="tc-desc">Practice modes and<br>skill drills.</div>
-          <div class="tc-corner tc-corner-green"></div>
-        </button>
-        
-        <button class="term-card border-purple" data-nav="vs-setup">
-          <div class="tc-top">
-            <span class="tc-num purple-text">02</span>
-            <span class="tc-arrow purple-text">[ → ]</span>
-          </div>
-          <div class="tc-icon purple-text">⚔️</div>
-          <div class="tc-divider"></div>
-          <div class="tc-title">DUEL</div>
-          <div class="tc-desc">Custom 1v1<br>precision race.</div>
-          <div class="tc-corner tc-corner-purple"></div>
-        </button>
+        <!-- Terminal Action Grid -->
+        <section class="primary-actions">
+          <!-- 01 TRAIN -->
+          <button class="term-card border-green" data-nav="modes">
+            <div class="tc-top">
+              <span class="tc-num green-text">01</span>
+              <span class="tc-arrow green-text">[ → ]</span>
+            </div>
+            <div class="tc-icon green-text">📝</div>
+            <div class="tc-divider"></div>
+            <div class="tc-title">TRAIN</div>
+            <div class="tc-desc">Practice modes and<br>skill drills.</div>
+            <div class="tc-corner tc-corner-green"></div>
+          </button>
+          
+          <!-- 02 DUEL -->
+          <button class="term-card border-purple" data-nav="vs-setup">
+            <div class="tc-top">
+              <span class="tc-num purple-text">02</span>
+              <span class="tc-arrow purple-text">[ → ]</span>
+            </div>
+            <div class="tc-icon purple-text">⚔️</div>
+            <div class="tc-divider"></div>
+            <div class="tc-title">DUEL</div>
+            <div class="tc-desc">Custom 1v1<br>precision race.</div>
+            <div class="tc-corner tc-corner-purple"></div>
+          </button>
 
-        <button class="term-card border-green" data-nav="levels">
-          <div class="tc-top">
-            <span class="tc-num green-text">03</span>
-            <span class="tc-arrow green-text">[ → ]</span>
-          </div>
-          <div class="tc-icon green-text">📊</div>
-          <div class="tc-divider"></div>
-          <div class="tc-title">CLIMB</div>
-          <div class="tc-desc">10 → 250 WPM<br>progression.</div>
-          <div class="tc-corner tc-corner-green"></div>
-        </button>
-      </div>
+          <!-- 03 CLIMB -->
+          <button class="term-card border-green" data-nav="levels">
+            <div class="tc-top">
+              <span class="tc-num green-text">03</span>
+              <span class="tc-arrow green-text">[ → ]</span>
+            </div>
+            <div class="tc-icon green-text">📊</div>
+            <div class="tc-divider"></div>
+            <div class="tc-title">CLIMB</div>
+            <div class="tc-desc">10 → 250 WPM<br>progression.</div>
+            <div class="tc-corner tc-corner-green"></div>
+          </button>
+        </section>
 
-      <!-- Bottom System Links -->
-      <div class="bottom-nav-row">
-        <button class="nav-link" data-nav="profile">[ PROFILE: addha ]</button>
-        <button class="nav-link" data-nav="achievements">[ ACHIEVEMENTS ]</button>
-        <button class="nav-link" data-nav="statistics">[ STATS ]</button>
-        <button class="nav-link" data-nav="settings">[ SETTINGS ]</button>
-      </div>
+        <!-- Sub Navigation -->
+        <section class="bottom-nav-row">
+          <button class="nav-link" data-nav="profile">[ PROFILE ]</button>
+          <button class="nav-link" data-nav="statistics">[ STATS ]</button>
+          <button class="nav-link" data-nav="achievements">[ RECORDS ]</button>
+          <button class="nav-link" data-nav="settings">[ SETTINGS ]</button>
+        </section>
+
+        <!-- Status Line -->
+        <section class="home-statusline">
+          <div>SYS_RANK: <span id="home-rank" class="green-text">Beginner</span></div>
+          <div>TOP_WPM: <span id="home-best-wpm" class="purple-text">0</span></div>
+          <div>LEVEL: <span id="home-level" class="white-text">1</span></div>
+          <div class="status-live"><span class="cursor-blink">█</span> SYSTEM ONLINE</div>
+        </section>
+      </main>
     </div>
   </section>
 
@@ -108,10 +121,7 @@
   <section id="screen-levels" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">[ ← ]</button>
-      <div class="sh-text">
-        <h2>CLIMB_LADDER</h2>
-        <p>COMPLETE LEVELS. UNLOCK NEW CHALLENGES.</p>
-      </div>
+      <div class="sh-text"><h2>CLIMB_LADDER</h2></div>
     </header>
     <div class="level-grid" id="level-grid"></div>
   </section>
@@ -120,10 +130,7 @@
   <section id="screen-modes" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">[ ← ]</button>
-      <div class="sh-text">
-        <h2>TRAINING_MODULES</h2>
-        <p>SELECT PRACTICE MODE SUBROUTINE.</p>
-      </div>
+      <div class="sh-text"><h2>TRAINING_MODULES</h2></div>
     </header>
     <div class="mode-grid" id="mode-grid"></div>
   </section>
@@ -144,9 +151,7 @@
   <section id="screen-statistics" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">[ ← ]</button>
-      <div class="sh-text">
-        <h2>SYS_STATS</h2>
-      </div>
+      <div class="sh-text"><h2>SYS_STATS</h2></div>
     </header>
     <div class="stats-wrap">
       <div class="stats-summary" id="stats-summary"></div>
@@ -173,18 +178,16 @@
   <section id="screen-profile" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">[ ← ]</button>
-      <div class="sh-text">
-        <h2>OPERATOR_PROFILE</h2>
-      </div>
+      <div class="sh-text"><h2>OPERATOR_PROFILE</h2></div>
     </header>
     <div class="profile-wrap">
       <div class="profile-card term-panel">
-        <div class="avatar" id="profile-avatar">A</div>
-        <input id="profile-username" class="username-input" maxlength="18" value="addha">
+        <div class="avatar" id="profile-avatar" style="display:none;">A</div>
+        <input id="profile-username" class="username-input" maxlength="18" value="Typist">
         <div class="rank-badge" id="profile-rank">Beginner</div>
       </div>
       <div class="profile-grid" id="profile-grid"></div>
-      <div class="avatar-picker term-panel" id="avatar-picker"></div>
+      <div class="avatar-picker term-panel" id="avatar-picker" style="display:none;"></div>
     </div>
   </section>
 
@@ -192,9 +195,7 @@
   <section id="screen-settings" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">[ ← ]</button>
-      <div class="sh-text">
-        <h2>SYS_SETTINGS</h2>
-      </div>
+      <div class="sh-text"><h2>SYS_SETTINGS</h2></div>
     </header>
     <div class="settings-wrap term-panel">
       <div class="setting-row">
@@ -214,7 +215,7 @@
       </div>
       <div class="setting-row">
         <label>Font Size</label>
-        <input type="range" id="set-fontsize" min="16" max="34" value="24">
+        <input type="range" id="set-fontsize" min="16" max="34" value="28">
       </div>
       <div class="setting-row">
         <label>Typing Font</label>
@@ -309,7 +310,6 @@
         <h2>INITIATE_DUEL</h2>
         <p>ESTABLISH P2P LINK FOR PRECISION COMBAT.</p>
       </div>
-      <button class="nav-link" data-nav="rules">[ READ_RULES ]</button>
     </header>
     <div class="vs-wrap">
 
@@ -441,76 +441,6 @@
       <div class="result-actions" style="margin-top:20px; display:flex; gap:20px;">
         <button class="nav-link active" id="vs-btn-rematch">[ REMATCH ]</button>
         <button class="nav-link" id="vs-btn-disconnect">[ RETURN_LOBBY ]</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ RULES SCREEN ============ -->
-  <section id="screen-rules" class="screen">
-    <header class="screen-header">
-      <button class="back-btn" data-nav="vs-setup">[ ← ]</button>
-      <div class="sh-text">
-        <h2>COMBAT_PROTOCOLS</h2>
-      </div>
-    </header>
-    <div class="rules-wrap">
-      
-      <!-- Top Modes Grid -->
-      <div class="rules-grid-3">
-        <div class="rule-card term-panel">
-          <h3 class="white-text">Standard</h3>
-          <div class="rc-sub">Classic & Balanced</div>
-          <ul class="rc-list">
-            <li><span class="green-text">✓</span> Mistakes allowed</li>
-            <li><span class="green-text">✓</span> Continue typing anytime</li>
-            <li><span class="green-text">✓</span> Accuracy affects the result</li>
-            <li><span class="purple-text">✗</span> No instant loss</li>
-          </ul>
-        </div>
-        <div class="rule-card term-panel" style="border-color:#00ff41;">
-          <h3 class="green-text">Precision</h3>
-          <div class="rc-sub">100% Accuracy Race</div>
-          <ul class="rc-list">
-            <li><span class="green-text">✓</span> Wrong key must be corrected</li>
-            <li><span class="green-text">✓</span> Final accuracy is always 100%</li>
-            <li><span class="green-text">✓</span> Focus on speed and progress</li>
-            <li><span class="purple-text">✗</span> No instant loss</li>
-          </ul>
-        </div>
-        <div class="rule-card term-panel" style="border-color:#b026ff;">
-          <h3 class="purple-text">Hardcore</h3>
-          <div class="rc-sub">One Mistake = Game Over</div>
-          <ul class="rc-list">
-            <li><span class="green-text">✓</span> One wrong key = immediate loss</li>
-            <li><span class="green-text">✓</span> No second chances</li>
-            <li><span class="green-text">✓</span> First to finish wins</li>
-            <li><span class="purple-text">✗</span> No tie-breakers needed</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Logic Grid -->
-      <div class="rules-grid-2">
-        <div class="rule-card term-panel">
-          <h3>⏱ Timed Mode Logic</h3>
-          <div class="rc-sub">When time reaches 0:</div>
-          <ol class="rc-num-list">
-            <li><strong>Higher Progress</strong> (% completed)</li>
-            <li><strong>Higher WPM</strong> (Speed)</li>
-            <li><strong>Higher Accuracy</strong> (Precision)</li>
-            <li>Draw (if all are identical)</li>
-          </ol>
-        </div>
-        <div class="rule-card term-panel">
-          <h3>🏁 Unlimited Mode Logic</h3>
-          <div class="rc-sub">Race to complete text:</div>
-          <ol class="rc-num-list">
-            <li><strong>First player</strong> to reach 100%</li>
-            <li><strong>Shorter time</strong> (if finished same tick)</li>
-            <li><strong>Higher Accuracy</strong></li>
-            <li>Draw (if all are identical)</li>
-          </ol>
-        </div>
       </div>
     </div>
   </section>
