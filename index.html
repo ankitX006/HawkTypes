@@ -3,18 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Typing Master — Offline Typing Trainer</title>
+<title>HawkTypes — Cyberpunk Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Grid background overlay -->
+<div class="cyber-grid"></div>
 <canvas id="bg-canvas"></canvas>
 
 <div id="toast-layer"></div>
 <div id="achievement-popup" class="achievement-popup hidden">
   <div class="ap-icon">🏆</div>
   <div class="ap-body">
-    <div class="ap-label">Achievement Unlocked</div>
+    <div class="ap-label">SYSTEM_UNLOCK</div>
     <div class="ap-title" id="ap-title">—</div>
   </div>
 </div>
@@ -23,41 +26,76 @@
 
   <!-- ============ HOME SCREEN ============ -->
   <section id="screen-home" class="screen active">
-    <div class="home-wrap">
+    
+    <!-- Top Navigation Bar (Matches Reference) -->
+    <header class="main-topbar">
       <div class="logo-block">
-        <h1 class="logo">Typing<span>Master</span></h1>
-        <p class="tagline">Precision. Speed. Mastery.</p>
+        <div class="logo-icon">🦅</div>
+        <h1 class="logo">HAWK<span>TYPES</span></h1>
       </div>
-      <nav class="home-menu">
-        <button class="menu-btn primary" data-nav="continue">
-          <span class="mb-icon">▶</span><span>Continue</span>
-        </button>
-        <button class="menu-btn" data-nav="levels">
-          <span class="mb-icon">⌂</span><span>Levels</span>
-        </button>
-        <button class="menu-btn" data-nav="modes">
-          <span class="mb-icon">◆</span><span>Practice Modes</span>
-        </button>
-        <button class="menu-btn" data-nav="vs-setup">
-          <span class="mb-icon">⚔</span><span>1v1 Race</span>
-        </button>
-        <button class="menu-btn" data-nav="achievements">
-          <span class="mb-icon">★</span><span>Achievements</span>
-        </button>
-        <button class="menu-btn" data-nav="statistics">
-          <span class="mb-icon">▤</span><span>Statistics</span>
-        </button>
-        <button class="menu-btn" data-nav="profile">
-          <span class="mb-icon">◉</span><span>Profile</span>
-        </button>
-        <button class="menu-btn" data-nav="settings">
-          <span class="mb-icon">⚙</span><span>Settings</span>
-        </button>
+      <nav class="top-nav">
+        <button class="nav-link active" data-nav="home">Home</button>
+        <button class="nav-link" data-nav="modes">Practice</button>
+        <button class="nav-link" data-nav="vs-setup">Race</button>
+        <button class="nav-link" data-nav="levels">Levels</button>
+        <button class="nav-link" data-nav="profile">Profile</button>
       </nav>
-      <div class="home-footer">
-        <div class="stat-chip"><span id="home-rank">Beginner</span></div>
-        <div class="stat-chip">Best <span id="home-best-wpm">0</span> WPM</div>
-        <div class="stat-chip">Level <span id="home-level">1</span></div>
+      <div class="top-user" data-nav="profile">
+        <div class="tu-avatar" id="home-avatar">A</div>
+        <div class="tu-info">
+          <div class="tu-name">addha</div>
+          <div class="tu-level">Lv. <span id="home-level">1</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="home-wrap">
+      <!-- Hero Section -->
+      <div class="hero-section cyber-panel">
+        <div class="hero-content">
+          <h2 class="hero-title">TYPE<br><span>SHARPER.</span><br>GO FURTHER.</h2>
+          <p class="hero-sub">PRECISION // SPEED // MASTERY</p>
+        </div>
+        <div class="hero-graphic"></div>
+      </div>
+
+      <!-- Action Grid -->
+      <div class="action-grid">
+        <button class="action-card btn-train" data-nav="modes">
+          <div class="ac-icon">⌨️</div>
+          <div class="ac-text">
+            <h3>TRAIN</h3>
+            <p>PRACTICE MODES</p>
+          </div>
+        </button>
+        
+        <button class="action-card btn-race primary-glow" data-nav="vs-setup">
+          <div class="ac-icon">⚔️</div>
+          <div class="ac-text">
+            <h3>1v1 RACE</h3>
+            <p>REAL-TIME BATTLE</p>
+          </div>
+        </button>
+
+        <button class="action-card btn-levels" data-nav="levels">
+          <div class="ac-icon">📊</div>
+          <div class="ac-text">
+            <h3>LEVELS</h3>
+            <p>CLIMB THE LADDER</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- Bottom Nav row -->
+      <div class="bottom-nav-row">
+        <button class="cyber-btn-outline" data-nav="achievements">★ ACHIEVEMENTS</button>
+        <button class="cyber-btn-outline" data-nav="statistics">▤ STATS</button>
+        <button class="cyber-btn-outline" data-nav="settings">⚙ SETTINGS</button>
+      </div>
+
+      <div class="home-footer" style="display:none;">
+        <span id="home-rank">Beginner</span>
+        <span id="home-best-wpm">0</span>
       </div>
     </div>
   </section>
@@ -66,8 +104,10 @@
   <section id="screen-levels" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>Levels</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>LEVELS</h2>
+        <p>COMPLETE LEVELS. UNLOCK NEW CHALLENGES.</p>
+      </div>
     </header>
     <div class="level-grid" id="level-grid"></div>
   </section>
@@ -76,8 +116,10 @@
   <section id="screen-modes" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>Practice Modes</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>PRACTICE MODES</h2>
+        <p>TRAIN DIFFERENT. IMPROVE FASTER.</p>
+      </div>
     </header>
     <div class="mode-grid" id="mode-grid"></div>
   </section>
@@ -86,8 +128,10 @@
   <section id="screen-achievements" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>Achievements</h2>
-      <span id="ach-progress" class="ach-progress-label">0 / 0</span>
+      <div class="sh-text">
+        <h2>ACHIEVEMENTS</h2>
+        <p id="ach-progress" class="ach-progress-label">0 / 0</p>
+      </div>
     </header>
     <div class="achievement-grid" id="achievement-grid"></div>
   </section>
@@ -96,24 +140,25 @@
   <section id="screen-statistics" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>Statistics</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>SYSTEM_STATS</h2>
+      </div>
     </header>
     <div class="stats-wrap">
       <div class="stats-summary" id="stats-summary"></div>
-      <div class="chart-card">
+      <div class="chart-card cyber-panel">
         <h3>WPM — Last 20 Tests</h3>
         <canvas id="chart-wpm" width="600" height="200"></canvas>
       </div>
-      <div class="chart-card">
+      <div class="chart-card cyber-panel">
         <h3>Accuracy — Last 20 Tests</h3>
         <canvas id="chart-acc" width="600" height="200"></canvas>
       </div>
-      <div class="chart-card">
+      <div class="chart-card cyber-panel">
         <h3>Mistake Heatmap (Top Keys)</h3>
         <canvas id="chart-heat" width="600" height="160"></canvas>
       </div>
-      <div class="chart-card">
+      <div class="chart-card cyber-panel">
         <h3>Practice Calendar (Last 35 Days)</h3>
         <canvas id="chart-cal" width="600" height="120"></canvas>
       </div>
@@ -124,17 +169,18 @@
   <section id="screen-profile" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>Profile</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>OPERATOR PROFILE</h2>
+      </div>
     </header>
     <div class="profile-wrap">
-      <div class="profile-card">
-        <div class="avatar" id="profile-avatar">🧑‍💻</div>
-        <input id="profile-username" class="username-input" maxlength="18" value="Typist">
+      <div class="profile-card cyber-panel">
+        <div class="avatar" id="profile-avatar">A</div>
+        <input id="profile-username" class="username-input" maxlength="18" value="addha">
         <div class="rank-badge" id="profile-rank">Beginner</div>
       </div>
       <div class="profile-grid" id="profile-grid"></div>
-      <div class="avatar-picker" id="avatar-picker"></div>
+      <div class="avatar-picker cyber-panel" id="avatar-picker"></div>
     </div>
   </section>
 
@@ -142,14 +188,15 @@
   <section id="screen-settings" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>Settings</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>SETTINGS</h2>
+      </div>
     </header>
-    <div class="settings-wrap">
+    <div class="settings-wrap cyber-panel">
       <div class="setting-row">
         <label>Theme</label>
         <div class="seg" id="set-theme">
-          <button data-val="dark" class="seg-on">Dark</button>
+          <button data-val="dark" class="seg-on">Amoled</button>
           <button data-val="light">Light</button>
         </div>
       </div>
@@ -163,13 +210,13 @@
       </div>
       <div class="setting-row">
         <label>Font Size</label>
-        <input type="range" id="set-fontsize" min="16" max="34" value="22">
+        <input type="range" id="set-fontsize" min="16" max="34" value="24">
       </div>
       <div class="setting-row">
         <label>Typing Font</label>
         <div class="seg" id="set-font">
-          <button data-val="mono" class="seg-on">Mono</button>
-          <button data-val="sans">Sans</button>
+          <button data-val="mono" class="seg-on">JetBrains</button>
+          <button data-val="sans">Inter</button>
           <button data-val="serif">Serif</button>
         </div>
       </div>
@@ -197,13 +244,13 @@
         </div>
       </div>
       <div class="setting-row buttons-row">
-        <button class="ghost-btn" id="btn-export">Export Progress</button>
-        <button class="ghost-btn" id="btn-import">Import Progress</button>
+        <button class="cyber-btn-outline" id="btn-export">Export Data</button>
+        <button class="cyber-btn-outline" id="btn-import">Import Data</button>
         <input type="file" id="import-file" accept=".json" hidden>
       </div>
-      <div class="setting-row buttons-row">
-        <button class="danger-btn" id="btn-reset-progress">Reset Progress</button>
-        <button class="danger-btn" id="btn-reset-stats">Reset Statistics</button>
+      <div class="setting-row buttons-row" style="margin-top:20px;">
+        <button class="cyber-btn-danger" id="btn-reset-progress">Wipe Progress</button>
+        <button class="cyber-btn-danger" id="btn-reset-stats">Wipe Stats</button>
       </div>
     </div>
   </section>
@@ -214,22 +261,22 @@
       <button class="back-btn" id="test-exit">←</button>
       <div class="test-mode-label" id="test-mode-label">Classic</div>
       <div class="timer-block">
-        <span id="timer-display">60</span>
+        <span id="timer-display" class="cyber-timer">60</span>
         <button class="icon-btn" id="btn-pause" title="Pause">❚❚</button>
         <button class="icon-btn" id="btn-restart" title="Restart">↻</button>
       </div>
     </header>
 
-    <div class="live-stats">
+    <div class="live-stats cyber-panel">
       <div class="ls-item"><span class="ls-val" id="ls-wpm">0</span><span class="ls-lbl">WPM</span></div>
-      <div class="ls-item"><span class="ls-val" id="ls-target">0</span><span class="ls-lbl">Target</span></div>
-      <div class="ls-item"><span class="ls-val" id="ls-acc">100%</span><span class="ls-lbl">Accuracy</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-target">0</span><span class="ls-lbl">TARGET</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-acc">100%</span><span class="ls-lbl">ACCURACY</span></div>
       <div class="ls-item"><span class="ls-val" id="ls-cpm">0</span><span class="ls-lbl">CPM</span></div>
-      <div class="ls-item"><span class="ls-val" id="ls-mistakes">0</span><span class="ls-lbl">Mistakes</span></div>
-      <div class="ls-item"><span class="ls-val" id="ls-level">1</span><span class="ls-lbl">Level</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-mistakes">0</span><span class="ls-lbl">ERRORS</span></div>
+      <div class="ls-item"><span class="ls-val" id="ls-level">1</span><span class="ls-lbl">LEVEL</span></div>
     </div>
 
-    <div class="type-card glass">
+    <div class="type-card cyber-panel">
       <div class="type-text" id="type-text"></div>
     </div>
 
@@ -241,11 +288,11 @@
     </div>
 
     <div id="pause-overlay" class="overlay hidden">
-      <div class="overlay-card">
-        <h2>Paused</h2>
-        <button class="menu-btn primary" id="btn-resume">Resume</button>
-        <button class="menu-btn" id="btn-restart-2">Restart</button>
-        <button class="menu-btn" id="btn-quit">Quit to Home</button>
+      <div class="overlay-card cyber-panel">
+        <h2 class="neon-text-red">SYSTEM_PAUSED</h2>
+        <button class="cyber-btn-primary" id="btn-resume">RESUME</button>
+        <button class="cyber-btn-outline" id="btn-restart-2">RESTART</button>
+        <button class="cyber-btn-outline" id="btn-quit">ABORT</button>
       </div>
     </div>
   </section>
@@ -254,85 +301,80 @@
   <section id="screen-vs-setup" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="home">←</button>
-      <h2>1v1 Race</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>1V1 RACE</h2>
+        <p>CHALLENGE A FRIEND. PROVE YOUR SKILL.</p>
+      </div>
+      <button class="cyber-btn-outline" data-nav="rules" style="padding: 6px 12px; font-size:0.75rem;">📖 RULES</button>
     </header>
     <div class="vs-wrap">
 
-      <div class="vs-info glass" style="display:flex; justify-content:space-between; align-items:center;">
-        <div>Both devices must be on the <strong>same Wi-Fi network or hotspot</strong>. No internet is used.</div>
-        <button class="menu-btn" data-nav="rules" style="padding: 8px 16px; min-width: 140px;">
-          <span class="mb-icon">📖</span><span>Read Rules</span>
-        </button>
-      </div>
-
       <div class="vs-role-pick" id="vs-role-pick">
-        <button class="menu-btn primary" id="vs-btn-host">Host a Race</button>
-        <button class="menu-btn primary" id="vs-btn-join">Join a Race</button>
+        <button class="cyber-btn-primary" id="vs-btn-host">HOST RACE</button>
+        <button class="cyber-btn-outline" id="vs-btn-join">JOIN RACE</button>
       </div>
 
       <!-- HOST FLOW -->
-      <div class="vs-panel hidden" id="vs-host-panel">
+      <div class="vs-panel hidden cyber-panel" id="vs-host-panel">
         <div class="vs-step">
-          <h4>Step 1 — Send this code to the other device</h4>
-          <p class="vs-hint">Copy it and send it any way you like (chat app, Bluetooth file/text share, email). It only has to be sent once.</p>
-          <textarea class="vs-code" id="vs-host-offer" readonly placeholder="Generating code..."></textarea>
-          <button class="ghost-btn" id="vs-copy-offer">Copy Code</button>
+          <h4>STEP 1 // GENERATE OFFER CODE</h4>
+          <p class="vs-hint">Send this secure payload to the opponent.</p>
+          <textarea class="vs-code" id="vs-host-offer" readonly placeholder="Encrypting..."></textarea>
+          <button class="cyber-btn-outline" id="vs-copy-offer">COPY PAYLOAD</button>
         </div>
         <div class="vs-step">
-          <h4>Step 2 — Paste the code they send back</h4>
-          <textarea class="vs-code" id="vs-host-answer" placeholder="Paste their reply code here"></textarea>
-          <button class="menu-btn primary" id="vs-host-connect">Connect</button>
+          <h4>STEP 2 // AWAIT ANSWER CODE</h4>
+          <textarea class="vs-code" id="vs-host-answer" placeholder="Paste incoming payload here"></textarea>
+          <button class="cyber-btn-primary" id="vs-host-connect">INITIALIZE LINK</button>
         </div>
         <div class="vs-status" id="vs-host-status"></div>
       </div>
 
       <!-- JOIN FLOW -->
-      <div class="vs-panel hidden" id="vs-join-panel">
+      <div class="vs-panel hidden cyber-panel" id="vs-join-panel">
         <div class="vs-step">
-          <h4>Step 1 — Paste the code from the host</h4>
-          <textarea class="vs-code" id="vs-join-offer" placeholder="Paste host's code here"></textarea>
-          <button class="menu-btn primary" id="vs-join-generate">Generate Reply Code</button>
+          <h4>STEP 1 // INPUT HOST PAYLOAD</h4>
+          <textarea class="vs-code" id="vs-join-offer" placeholder="Paste host payload here"></textarea>
+          <button class="cyber-btn-primary" id="vs-join-generate">DECRYPT & REPLY</button>
         </div>
         <div class="vs-step">
-          <h4>Step 2 — Send this reply code back to the host</h4>
-          <textarea class="vs-code" id="vs-join-answer" readonly placeholder="Your reply code will appear here"></textarea>
-          <button class="ghost-btn" id="vs-copy-answer">Copy Code</button>
+          <h4>STEP 2 // SEND REPLY CODE</h4>
+          <textarea class="vs-code" id="vs-join-answer" readonly placeholder="Awaiting generation..."></textarea>
+          <button class="cyber-btn-outline" id="vs-copy-answer">COPY PAYLOAD</button>
         </div>
         <div class="vs-status" id="vs-join-status"></div>
       </div>
 
       <div class="vs-lobby hidden" id="vs-lobby">
-        <div class="vs-connected">✓ Connected to opponent</div>
+        <div class="vs-connected">SYSTEM LINK ESTABLISHED</div>
         <div id="vs-host-controls" class="hidden">
-          <h4>Choose race rules</h4>
-          <div class="vs-options glass">
+          <div class="vs-options cyber-panel">
             <div class="vs-option-row">
-              <label>Match Type</label>
+              <label>DURATION</label>
               <div class="seg" id="vs-match-type">
                 <button data-mode="timed" data-duration="30" class="seg-on">30s</button>
                 <button data-mode="timed" data-duration="60">60s</button>
                 <button data-mode="timed" data-duration="120">120s</button>
-                <button data-mode="unlimited" data-duration="0">Unlimited</button>
+                <button data-mode="unlimited" data-duration="0">UNLIMITED</button>
               </div>
             </div>
             <div class="vs-option-row">
-              <label>Ruleset</label>
+              <label>GAME MODE</label>
               <div class="seg" id="vs-ruleset">
-                <button data-ruleset="standard" class="seg-on">Standard</button>
-                <button data-ruleset="precision">Precision</button>
-                <button data-ruleset="hardcore">Hardcore</button>
+                <button data-ruleset="standard" class="seg-on">STANDARD</button>
+                <button data-ruleset="precision">PRECISION</button>
+                <button data-ruleset="hardcore">HARDCORE</button>
               </div>
             </div>
             <div class="vs-option-row custom-text-row">
-              <label for="vs-custom-text">Custom Text</label>
-              <textarea id="vs-custom-text" class="vs-code" placeholder="Optional host text for a custom race"></textarea>
+              <label for="vs-custom-text">CUSTOM INJECT</label>
+              <textarea id="vs-custom-text" class="vs-code" placeholder="Optional raw string injection..."></textarea>
             </div>
           </div>
-          <h4>Text Category</h4>
+          <h4 class="section-title" style="margin-top:20px;">TEXT PROTOCOL</h4>
           <div class="mode-grid" id="vs-category-grid"></div>
         </div>
-        <div id="vs-guest-waiting" class="hidden">Waiting for host to start the race...</div>
+        <div id="vs-guest-waiting" class="hidden neon-text-red">AWAITING HOST CONFIGURATION...</div>
       </div>
     </div>
   </section>
@@ -341,43 +383,45 @@
   <section id="screen-vs-race" class="screen">
     <header class="test-topbar">
       <button class="back-btn" id="vs-exit">←</button>
-      <div class="test-mode-label">1v1 Race</div>
-      <div class="timer-block"><span id="vs-timer-display">0</span></div>
+      <div class="test-mode-label" style="font-family: var(--font-head); font-size:1.2rem; font-weight:700;">1V1 BATTLE</div>
+      <div class="timer-block"><span id="vs-timer-display" class="cyber-timer neon-text-red">0</span></div>
     </header>
 
-    <div class="vs-tracks">
+    <div class="vs-tracks cyber-panel" style="padding: 16px;">
       <div class="vs-track">
-        <div class="vs-track-label">You <span id="vs-my-wpm">0 WPM</span></div>
+        <div class="vs-track-label">YOU <span id="vs-my-wpm" class="neon-text-cyan">0 WPM</span></div>
         <div class="vs-track-bar"><div class="vs-track-fill me" id="vs-my-fill"></div></div>
       </div>
       <div class="vs-track">
-        <div class="vs-track-label">Opponent <span id="vs-opp-wpm">0 WPM</span></div>
+        <div class="vs-track-label">OPPONENT <span id="vs-opp-wpm" class="neon-text-red">0 WPM</span></div>
         <div class="vs-track-bar"><div class="vs-track-fill opp" id="vs-opp-fill"></div></div>
       </div>
     </div>
 
-    <div class="live-stats">
-      <div class="ls-item"><span class="ls-val" id="vs-ls-wpm">0</span><span class="ls-lbl">WPM</span></div>
-      <div class="ls-item"><span class="ls-val" id="vs-ls-acc">100%</span><span class="ls-lbl">Accuracy</span></div>
-      <div class="ls-item"><span class="ls-val" id="vs-ls-progress">0%</span><span class="ls-lbl">Progress</span></div>
-      <div class="ls-item"><span class="ls-val" id="vs-ls-time">0s</span><span class="ls-lbl">Time Left</span></div>
+    <div class="live-stats cyber-panel">
+      <div class="ls-item"><span class="ls-val neon-text-cyan" id="vs-ls-wpm">0</span><span class="ls-lbl">WPM</span></div>
+      <div class="ls-item"><span class="ls-val" id="vs-ls-acc">100%</span><span class="ls-lbl">ACCURACY</span></div>
+      <div class="ls-item"><span class="ls-val" id="vs-ls-progress">0%</span><span class="ls-lbl">PROGRESS</span></div>
+      <div class="ls-item"><span class="ls-val" id="vs-ls-time">0s</span><span class="ls-lbl">TIME LEFT</span></div>
     </div>
 
-    <div class="type-card glass">
+    <div class="type-card cyber-panel">
       <div class="type-text" id="vs-type-text"></div>
     </div>
     <input type="text" id="vs-hidden-input" autocomplete="off" autocapitalize="off" spellcheck="false">
 
     <div id="vs-ready-overlay" class="overlay hidden">
-      <div class="overlay-card">
-        <h2>Ready Lock</h2>
+      <div class="overlay-card cyber-panel">
+        <h2 class="neon-text-red">WAITING FOR OPPONENT</h2>
         <p class="vs-ready-copy" id="vs-ready-status">Both players must press Ready.</p>
-        <button class="menu-btn primary" id="vs-btn-ready">Ready</button>
+        <button class="cyber-btn-primary" id="vs-btn-ready">READY</button>
       </div>
     </div>
 
     <div id="vs-countdown-overlay" class="overlay hidden">
-      <div class="overlay-card"><h2 id="vs-countdown-num">3</h2></div>
+      <div class="overlay-card cyber-panel bg-transparent border-none">
+        <h2 id="vs-countdown-num" class="mega-countdown">3</h2>
+      </div>
     </div>
   </section>
 
@@ -386,9 +430,9 @@
     <div class="result-wrap">
       <div class="result-banner" id="vs-result-banner">RESULT</div>
       <div class="vs-result-compare" id="vs-result-compare"></div>
-      <div class="result-actions">
-        <button class="menu-btn primary" id="vs-btn-rematch">Rematch</button>
-        <button class="menu-btn" id="vs-btn-disconnect">Return Lobby</button>
+      <div class="result-actions" style="margin-top:20px;">
+        <button class="cyber-btn-primary" id="vs-btn-rematch">REMATCH</button>
+        <button class="cyber-btn-outline" id="vs-btn-disconnect">RETURN LOBBY</button>
       </div>
     </div>
   </section>
@@ -397,14 +441,15 @@
   <section id="screen-rules" class="screen">
     <header class="screen-header">
       <button class="back-btn" data-nav="vs-setup">←</button>
-      <h2>HawkTypes 1v1 Rules</h2>
-      <span></span>
+      <div class="sh-text">
+        <h2>COMBAT PROTOCOLS</h2>
+      </div>
     </header>
     <div class="rules-wrap">
       
       <!-- Top Modes Grid -->
       <div class="rules-grid-3">
-        <div class="rule-card r-blue">
+        <div class="rule-card cyber-panel r-blue">
           <h3>Standard Mode</h3>
           <div class="rc-sub">Classic & Balanced</div>
           <ul class="rc-list">
@@ -414,7 +459,7 @@
             <li><span class="icon-x">✗</span> No instant loss</li>
           </ul>
         </div>
-        <div class="rule-card r-green">
+        <div class="rule-card cyber-panel r-green">
           <h3>Precision Mode</h3>
           <div class="rc-sub">100% Accuracy Race</div>
           <ul class="rc-list">
@@ -424,7 +469,7 @@
             <li><span class="icon-x">✗</span> No instant loss</li>
           </ul>
         </div>
-        <div class="rule-card r-red">
+        <div class="rule-card cyber-panel r-red">
           <h3>Hardcore Mode</h3>
           <div class="rc-sub">One Mistake = Game Over</div>
           <ul class="rc-list">
@@ -438,7 +483,7 @@
 
       <!-- Logic Grid -->
       <div class="rules-grid-2">
-        <div class="rule-card">
+        <div class="rule-card cyber-panel">
           <h3 class="rc-title-glow">⏱ Timed Mode Logic</h3>
           <div class="rc-sub">When time reaches 0, priority is:</div>
           <ol class="rc-num-list">
@@ -448,7 +493,7 @@
             <li>Draw (if all are identical)</li>
           </ol>
         </div>
-        <div class="rule-card">
+        <div class="rule-card cyber-panel">
           <h3 class="rc-title-glow">🏁 Unlimited Mode Logic</h3>
           <div class="rc-sub">Race to complete the text:</div>
           <ol class="rc-num-list">
@@ -459,45 +504,25 @@
           </ol>
         </div>
       </div>
-
-      <!-- Important Rules -->
-      <div class="rule-card">
-        <h3 class="rc-title-glow">⚠️ Important Mechanics</h3>
-        <div class="rules-mechanics-grid">
-          <div class="rm-item">
-            <strong>0% Progress Rule:</strong> A player with 0% progress cannot win unless the opponent also has 0%. AFK players forfeit.
-          </div>
-          <div class="rm-item">
-            <strong>Disconnections:</strong> If a player disconnects, they have a 10-second reconnect window. If they fail to return, they forfeit.
-          </div>
-          <div class="rm-item">
-            <strong>Strict Anti-Cheat:</strong> Pasting, drag-and-drop, and macro scripts are detected and result in an automatic, immediate forfeit.
-          </div>
-          <div class="rm-item">
-            <strong>Shared Seed:</strong> Both players always receive the exact same text formatting, characters, and sequence.
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
   <!-- ============ RESULT SCREEN ============ -->
   <section id="screen-result" class="screen">
     <div class="result-wrap">
-      <div class="result-banner" id="result-banner">PASS</div>
-      <div class="result-grid" id="result-grid"></div>
-      <div class="result-weak" id="result-weak"></div>
-      <div class="result-suggestion" id="result-suggestion"></div>
+      <div class="result-banner" id="result-banner">MISSION ACCOMPLISHED</div>
+      <div class="result-grid cyber-panel" id="result-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; width:100%; padding:20px;"></div>
+      <div class="result-weak cyber-panel" id="result-weak"></div>
+      <div class="result-suggestion cyber-panel" id="result-suggestion"></div>
       <div class="result-earn">
-        <div>+<span id="result-xp">0</span> XP</div>
-        <div>+<span id="result-coins">0</span> Coins</div>
-        <div id="result-stars">☆☆☆</div>
+        <div class="neon-text-cyan">+<span id="result-xp">0</span> XP</div>
+        <div class="neon-text-green">+<span id="result-coins">0</span> CREDITS</div>
+        <div id="result-stars" class="neon-text-red">☆☆☆</div>
       </div>
-      <div class="result-actions">
-        <button class="menu-btn" id="btn-result-retry">Retry</button>
-        <button class="menu-btn primary" id="btn-result-next">Next Level</button>
-        <button class="menu-btn" id="btn-result-home">Home</button>
+      <div class="result-actions" style="margin-top:20px;">
+        <button class="cyber-btn-outline" id="btn-result-retry">RETRY</button>
+        <button class="cyber-btn-primary" id="btn-result-next">NEXT LEVEL</button>
+        <button class="cyber-btn-outline" id="btn-result-home">HOME</button>
       </div>
     </div>
   </section>
